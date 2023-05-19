@@ -5,6 +5,7 @@
 </p>
 
 # AIComponent: Unity编辑器扩展，集成各种先进AI自动创建游戏组件
+[![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/SCIR-HI/Huatuo-Llama-Med-Chinese/blob/main/LICENSE)
 
 ## 功能列表：
 

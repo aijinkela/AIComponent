@@ -5,6 +5,7 @@
 </p>
 
 # AIComponent: Unity Editor Extension, integrating various advanced AI to automatically create game components.
+[![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/SCIR-HI/Huatuo-Llama-Med-Chinese/blob/main/LICENSE)
 
 ## List of Features:
 1. Script - Integrates ChatGPT to automatically generate game logic and add behavior to selected game objects.
