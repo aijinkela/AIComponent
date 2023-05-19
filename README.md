@@ -1,7 +1,7 @@
 [**中文**](./README.md) | [**English**](./README_EN.md)
 
 <p align="center" width="100%">
-<a href="https://github.com/aijinkela/AIComponent" target="_blank"><img src="docs/ad2.png" alt="AIComponent" style="width: 60%; min-width: 100px; display: block; margin: auto;"></a>
+<a href="https://github.com/aijinkela/AIComponent" target="_blank"><img src="docs/ad2.png" alt="AIComponent" style="width: 70%; min-width: 100px; display: block; margin: auto;"></a>
 </p>
 
 # AIComponent: Unity编辑器扩展，集成各种先进AI自动创建游戏组件
