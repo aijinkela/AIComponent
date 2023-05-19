@@ -12,8 +12,10 @@ Desktop.ini
 *.sln
 .vscode
 Assets/AIScripts
+Assets/AIShapes
 obj
 ProjectSettings
 Assets/Settings
 Assets/Scenes
+
 Packages

@@ -8,7 +8,8 @@ namespace AIComponent {
 public sealed class AIComponentSettings : ScriptableSingleton<AIComponentSettings>
 {
     public string apiKey = null;
-    public string apiBase =  "https://api.openai.com";
+    public string chatAPIBaseUrl =  "https://api.openai.com";
+    public string shapeAPIBaseUrl = "http://127.0.0.1:8000";
     public int timeout = 0;
     public void Save() => Save(true);
     void OnDisable() => Save();
@@ -24,19 +25,22 @@ sealed class AIComponentSettingsProvider : SettingsProvider
         var settings = AIComponentSettings.instance;
 
         var key = settings.apiKey;
-        var apiBase = settings.apiBase;
+        var chatAPIBaseUrl = settings.chatAPIBaseUrl;
+        var shapeAPIBaseUrl = settings.shapeAPIBaseUrl;
         var timeout = settings.timeout;
 
         EditorGUI.BeginChangeCheck();
 
         key = EditorGUILayout.TextField("API Key", key);
-        apiBase = EditorGUILayout.TextField("API Base Url", apiBase);
+        chatAPIBaseUrl = EditorGUILayout.TextField("Chat API Base Url", chatAPIBaseUrl);
+        shapeAPIBaseUrl = EditorGUILayout.TextField("Shap-E API Base Url", shapeAPIBaseUrl);
         timeout = EditorGUILayout.IntField("Timeout", timeout);
 
         if (EditorGUI.EndChangeCheck())
         {
             settings.apiKey = key;
-            settings.apiBase = apiBase;
+            settings.chatAPIBaseUrl = chatAPIBaseUrl;
+            settings.shapeAPIBaseUrl = shapeAPIBaseUrl;
             settings.timeout = timeout;
             settings.Save();
         }

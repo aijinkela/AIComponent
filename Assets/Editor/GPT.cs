@@ -5,7 +5,7 @@ namespace AIComponent.OpenAI
         public static string GetUrl()
         {
             var settings = AIComponentSettings.instance;
-            return settings.apiBase + "/v1/chat/completions";
+            return settings.chatAPIBaseUrl + "/v1/chat/completions";
         }
 
     }

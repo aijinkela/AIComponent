@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,11 +21,11 @@ namespace AIComponent
          " - You should add using statement at the top of the code to ensure that the code compilation will not report errors. \n" +
          "The Component is described as follows:\n" + input;
 
-        public void Generator()
+        public void GeneratorScript()
         {
             Debug.Log("prompt: " + _prompt);
             var warp = WrapPrompt(_prompt);
-            var text = OpenAIUtil.InvokeChat(warp);
+            var text = AIUtil.InvokeChat(warp);
             Debug.Log("chatgpt resp: ");
             Debug.Log(text);
             var scriptName = GetClassName(text);
@@ -35,7 +36,54 @@ namespace AIComponent
             BindScriptAsset(filename, scriptName);
         }
 
-        private string GetClassName(string code) 
+        public void GeneratorShape()
+        {
+            Debug.Log("prompt: " + _prompt);
+            var downloadUrl = AIUtil.InvokeShapE(_prompt);
+            var filename = FormatFileName(_prompt);
+            var filepath = "Assets/AIShapes/" + filename + ".blend";
+            DownloadFile(downloadUrl, filepath);
+        }
+
+        public static string FormatFileName(string input)
+        {
+            // 将非法字符替换为空格
+            string output = Regex.Replace(input, @"[^\w\.-]", " ");
+
+            // 删除多余的空格并将其替换为下划线
+            output = Regex.Replace(output, @"\s+", "_");
+
+            // 去除文件名中末尾的点号和空格
+            output = output.TrimEnd(new char[] { '.', ' ' });
+
+            return output;
+        }
+
+        private void EnsureDirectoryExists(string folderPath){
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+        }
+
+        private void DownloadFile(string url, string file)
+        {
+            using (WebClient client = new WebClient())
+            {
+                byte[] data = client.DownloadData(url);  // 下载远端文件数据
+
+                string fullPath = Path.GetFullPath(file);
+                EnsureDirectoryExists(Path.GetDirectoryName(fullPath));
+                // 写入数据到本地文件
+                File.WriteAllBytes(fullPath, data);
+
+                AssetDatabase.Refresh();  // 刷新资产目录
+
+                Debug.Log("Downloaded " + url + " to " + fullPath);
+            }
+        }
+
+        private string GetClassName(string code)
         {
             string className = null;
             Regex regex = new Regex(@"(?:^|\s+)class\s+([a-zA-Z_][a-zA-Z0-9_]*)");
@@ -49,10 +97,12 @@ namespace AIComponent
             return className;
         }
 
-        public static Type GetAssemblyType(string typeName) {
+        public static Type GetAssemblyType(string typeName)
+        {
             var type = Type.GetType(typeName);
             if (type != null) return type;
-            foreach (var a in AppDomain.CurrentDomain.GetAssemblies()) {
+            foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
+            {
                 type = a.GetType(typeName);
                 if (type != null) return type;
             }
@@ -71,12 +121,15 @@ namespace AIComponent
         }
 
         private MonoScript tmpScript;
-        private void Update() {
-            if(tmpScript != null){
+        private void Update()
+        {
+            if (tmpScript != null)
+            {
                 Type classType = tmpScript.GetClass();
                 if (classType != null && classType.BaseType == typeof(MonoBehaviour))
                 {
-                    if(Selection.activeGameObject != null){
+                    if (Selection.activeGameObject != null)
+                    {
                         Selection.activeGameObject.AddComponent(classType);
                     }
                     tmpScript = null;
@@ -88,7 +141,8 @@ namespace AIComponent
         {
             AssetDatabase.ImportAsset(file, ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
             var script = AssetDatabase.LoadAssetAtPath<MonoScript>(file);
-            if(Selection.activeGameObject != null){
+            if (Selection.activeGameObject != null)
+            {
                 tmpScript = script;
             }
         }
@@ -114,7 +168,9 @@ namespace AIComponent
             if (IsApiKeyOk)
             {
                 _prompt = EditorGUILayout.TextArea(_prompt, GUILayout.ExpandHeight(true));
-                if (GUILayout.Button("Run")) Generator();
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("Script")) GeneratorScript();
+                if (GUILayout.Button("Shape")) GeneratorShape();
             }
             else
             {
