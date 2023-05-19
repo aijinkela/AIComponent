@@ -4,7 +4,7 @@
 <a href="https://github.com/aijinkela/AIComponent" target="_blank"><img src="docs/ad2.png" alt="AIComponent" style="width: 70%; min-width: 100px; display: block; margin: auto;"></a>
 </p>
 
-# AIComponent: Unity Editor Extension, integrating various advanced AI to automatically create game components.
+# AIComponent: Integrating various advanced AI to automatically create game components.
 [![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/SCIR-HI/Huatuo-Llama-Med-Chinese/blob/main/LICENSE)
 
 ## List of Features:
