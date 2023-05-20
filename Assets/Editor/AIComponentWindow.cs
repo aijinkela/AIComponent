@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Unity.EditorCoroutines.Editor;
 
 namespace AIComponent
 {
