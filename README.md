@@ -11,6 +11,7 @@
 
 1. Script 集成ChatGPT自动生成游戏逻辑，为选中游戏对象添加行为
 2. Shape  集成Shap-e自动生成3d造型，并设置好材质，自动加入场景
+3. Image 集成Stable Diffusion 游戏2D素材
 
 ## 使用方法
 
