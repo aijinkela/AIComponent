@@ -42,6 +42,25 @@ namespace AIComponent
             var filename = FormatFileName(_prompt);
             var filepath = "Assets/AIShapes/" + filename + ".blend";
             DownloadFile(downloadUrl, filepath);
+            GameObject prefabObj = AssetDatabase.LoadAssetAtPath<GameObject>(filepath);
+            if (prefabObj != null)
+            {
+                GameObject selectedGameObject = Selection.activeGameObject;
+
+                if (selectedGameObject == null)
+                {
+                    // If no object is selected, instantiate the prefab at the origin
+                    Instantiate(prefabObj, Vector3.zero, Quaternion.identity);
+                    Debug.Log("Prefab added to scene!");
+                }
+                else
+                {
+                    // If an object is selected, instantiate the prefab as a child of the selected object
+                    GameObject newObject = Instantiate(prefabObj, selectedGameObject.transform.position, selectedGameObject.transform.rotation);
+                    newObject.transform.parent = selectedGameObject.transform;
+                    Debug.Log("Prefab added to " + selectedGameObject.name + "!");
+                }
+            }
         }
 
         public static string FormatFileName(string input)
