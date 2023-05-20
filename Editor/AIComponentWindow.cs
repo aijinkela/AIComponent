@@ -29,7 +29,7 @@ namespace AIComponent
             Debug.Log(text);
             var scriptName = GetClassName(text);
             var scriptContent = text;
-            var filename = "Assets/AIScripts/" + scriptName + ".cs";
+            var filename = "Assets/AIComponent/AIScripts/" + scriptName + ".cs";
             CreateScriptAsset(filename, scriptContent);
             // EditorCoroutineUtility.StartCoroutine(BindScriptAsset(filename, scriptName), this);  //some times not work 
             BindScriptAsset(filename, scriptName);
@@ -40,7 +40,7 @@ namespace AIComponent
             Debug.Log("prompt: " + _prompt);
             var downloadUrl = AIUtil.InvokeShapE(_prompt);
             var filename = FormatFileName(_prompt);
-            var filepath = "Assets/AIShapes/" + filename + ".blend";
+            var filepath = "Assets/AIComponent/AIShapes/" + filename + ".blend";
             DownloadFile(downloadUrl, filepath);
             GameObject prefabObj = AssetDatabase.LoadAssetAtPath<GameObject>(filepath);
             if (prefabObj != null)

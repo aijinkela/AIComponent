@@ -9,7 +9,7 @@ public class ReplaceMaterial : AssetPostprocessor
         if (!assetPath.ToLower().EndsWith(".blend")) return;
 
         // Get a reference to the ShapeColorMat material
-        Material shapeColorMat = (Material)AssetDatabase.LoadAssetAtPath("Assets/AIBase/ShapeColorMat.mat", typeof(Material));
+        Material shapeColorMat = (Material)AssetDatabase.LoadAssetAtPath("Assets/AIComponent/AIBase/ShapeColorMat.mat", typeof(Material));
 
         // Get all the mesh renderers in the imported model
         MeshRenderer[] renderers = g.GetComponentsInChildren<MeshRenderer>();

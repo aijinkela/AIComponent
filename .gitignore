@@ -11,8 +11,8 @@ Desktop.ini
 *.csproj
 *.sln
 .vscode
-Assets/AIScripts
-Assets/AIShapes
+AIScripts
+AIShapes
 obj
 ProjectSettings
 Assets/Settings
