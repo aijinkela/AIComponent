@@ -50,7 +50,8 @@ namespace AIComponent
                 if (selectedGameObject == null)
                 {
                     // If no object is selected, instantiate the prefab at the origin
-                    Instantiate(prefabObj, Vector3.zero, Quaternion.identity);
+                    var newObject = Instantiate(prefabObj, Vector3.zero, Quaternion.identity);
+                    newObject.transform.Rotate(Vector3.right, -89.98f);
                     Debug.Log("Prefab added to scene!");
                 }
                 else
@@ -58,6 +59,7 @@ namespace AIComponent
                     // If an object is selected, instantiate the prefab as a child of the selected object
                     GameObject newObject = Instantiate(prefabObj, selectedGameObject.transform.position, selectedGameObject.transform.rotation);
                     newObject.transform.parent = selectedGameObject.transform;
+                    newObject.transform.Rotate(Vector3.right, -89.98f);
                     Debug.Log("Prefab added to " + selectedGameObject.name + "!");
                 }
             }
