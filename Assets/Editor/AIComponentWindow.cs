@@ -45,24 +45,8 @@ namespace AIComponent
             GameObject prefabObj = AssetDatabase.LoadAssetAtPath<GameObject>(filepath);
             if (prefabObj != null)
             {
-                GameObject selectedGameObject = Selection.activeGameObject;
-
-                if (selectedGameObject == null)
-                {
-                    // If no object is selected, instantiate the prefab at the origin
-                    var newObject = Instantiate(prefabObj, Vector3.zero, Quaternion.identity);
-                    newObject.transform.rotation = Quaternion.Euler(-89.98f, 0f, 0f);
-                    Debug.Log("Prefab added to scene!");
-                }
-                else
-                {
-                    // If an object is selected, instantiate the prefab as a child of the selected object
-                    GameObject newObject = Instantiate(prefabObj, selectedGameObject.transform.position, selectedGameObject.transform.rotation);
-                    newObject.transform.rotation = Quaternion.Euler(-89.98f, 0f, 0f);
-                    newObject.transform.parent = selectedGameObject.transform;
-        
-                    Debug.Log("Prefab added to " + selectedGameObject.name + "!");
-                }
+                PrefabUtility.InstantiatePrefab(prefabObj);
+                Debug.Log("Prefab added to scene!");
             }
         }
 
